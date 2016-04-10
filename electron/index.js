@@ -52,10 +52,10 @@ angular.module('EmailApp', [])
     emailCtrl.emailSent = false;
 
     emailSearch = function(search) {
-      var query = search.value.toLowerCase();
-      if (query === '') {
+      if (search.value === '') {
         $scope.displayedEmails = emailCtrl.emails;
       } else {
+        var query = search.value.toLowerCase();
         $scope.displayedEmails = emailCtrl.emails.filter(function(email){
           if (email.from.toLowerCase().includes(query) || email.subject.toLowerCase().includes(query) || email.body.toLowerCase().includes(query)) {
             console.log('true');
