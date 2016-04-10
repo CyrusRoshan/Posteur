@@ -1,0 +1,16 @@
+### Starting build.
+# Target: chain_service.ml.depends, tags: { extension:ml, file:chain_service.ml, ocaml, ocamldep, package(netstring), package(netsys), package(sqlite3), package(yojson), quiet }
+ocamlfind ocamldep -package sqlite3 -package netstring -package netsys -package yojson -modules chain_service.ml > chain_service.ml.depends # cached
+# Target: db_service.ml.depends, tags: { extension:ml, file:db_service.ml, ocaml, ocamldep, package(netstring), package(netsys), package(sqlite3), package(yojson), quiet }
+ocamlfind ocamldep -package sqlite3 -package netstring -package netsys -package yojson -modules db_service.ml > db_service.ml.depends
+# Target: db_service.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:db_service.cmo, file:db_service.ml, implem, ocaml, package(netstring), package(netsys), package(sqlite3), package(yojson), quiet }
+ocamlfind ocamlc -c -package sqlite3 -package netstring -package netsys -package yojson -o db_service.cmo db_service.ml
+# Target: chain_service.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:chain_service.cmo, file:chain_service.ml, implem, ocaml, package(netstring), package(netsys), package(sqlite3), package(yojson), quiet }
+ocamlfind ocamlc -c -package sqlite3 -package netstring -package netsys -package yojson -o chain_service.cmo chain_service.ml
+# Target: db_service.cmx, tags: { compile, extension:cmx, extension:ml, file:db_service.cmx, file:db_service.ml, implem, native, ocaml, package(netstring), package(netsys), package(sqlite3), package(yojson), quiet }
+ocamlfind ocamlopt -c -package sqlite3 -package netstring -package netsys -package yojson -o db_service.cmx db_service.ml
+# Target: chain_service.cmx, tags: { compile, extension:cmx, extension:ml, file:chain_service.cmx, file:chain_service.ml, implem, native, ocaml, package(netstring), package(netsys), package(sqlite3), package(yojson), quiet }
+ocamlfind ocamlopt -c -package sqlite3 -package netstring -package netsys -package yojson -o chain_service.cmx chain_service.ml
+# Target: chain_service.native, tags: { dont_link_with, extension:native, file:chain_service.native, link, native, ocaml, package(netstring), package(netsys), package(sqlite3), package(yojson), program, quiet }
+ocamlfind ocamlopt -linkpkg -package sqlite3 -package netstring -package netsys -package yojson db_service.cmx chain_service.cmx -o chain_service.native
+# Compilation successful.

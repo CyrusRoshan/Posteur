@@ -5,6 +5,10 @@ html, body {
   -webkit-user-select: none;
 }
 
+* {
+  outline: none;
+}
+
 #left {
   float: left;
   display: block;
@@ -237,4 +241,8 @@ html, body {
   transition-timing-function: ease-in;
   max-height: 1000px;
   overflow: hidden;
+}
+
+.fraud {
+  background-color: #F7AFAF;
 }

@@ -1,3 +1,5 @@
+const ipcRenderer = require('electron').ipcRenderer;
+
 angular.module('EmailApp', [])
   .controller('EmailCtrl', ['$scope', function($scope) {
     var emailCtrl = this;
@@ -14,6 +16,17 @@ angular.module('EmailApp', [])
 
     emailCtrl.refresh = function() {
       console.log('Refreshing...');
+      ipcRenderer.sendSync('CLI', './db_service/db_service.native -force-retrieval-job');
+      var dbInfo = JSON.parse(ipcRenderer.sendSync('CLI', './db_service/db_service.native -show-emails')).emails.map(function (elem) {
+        elem.subject = decodeURIComponent(elem.subject.replace(/\+/g, '%20'));
+        elem.body = decodeURIComponent(elem.body.replace(/\+/g, '%20'));
+        if (elem.subject.includes('1801'))
+          elem.fraud = true;
+        return elem;
+      });
+      console.log(dbInfo);
+      emailCtrl.emails = dbInfo;
+      emailSearch({value: ''});
     }
 
     emailCtrl.currentComposeState = '+';
@@ -28,19 +41,25 @@ angular.module('EmailApp', [])
     }
 
     emailCtrl.sendMail = function() {
-      console.log(emailCtrl.currentComposeEmail);
+      ipcRenderer.sendSync('CLI', `java -jar mailrunner.jar ${encodeURIComponent(emailCtrl.currentComposeEmail.recipients)} ${encodeURIComponent(emailCtrl.currentComposeEmail.subject)} ${encodeURIComponent(emailCtrl.currentComposeEmail.body)}`);
+
       emailCtrl.compose();
+      emailCtrl.emailSent = true;
+      setTimeout(function() {
+        emailCtrl.emailSent = false;
+        $scope.$apply();
+      }, 1500);
     }
 
-    emailCtrl.emailSent = true;
+    emailCtrl.emailSent = false;
 
     emailSearch = function(search) {
-      var query = search.value.toLowerCase();
-      if (query === '') {
+      if (search.value === '') {
         $scope.displayedEmails = emailCtrl.emails;
       } else {
+        var query = search.value.toLowerCase();
         $scope.displayedEmails = emailCtrl.emails.filter(function(email){
-          if (email.sender.toLowerCase().includes(query) || email.subject.toLowerCase().includes(query) || email.body.toLowerCase().includes(query)) {
+          if (email.from.toLowerCase().includes(query) || email.subject.toLowerCase().includes(query) || email.body.toLowerCase().includes(query)) {
             console.log('true');
             return true;
           }
@@ -59,33 +78,24 @@ angular.module('EmailApp', [])
 
     emailCtrl.emails = [
       {
-        sender: 'Sender Name 1',
+        from: 'Sender Name 1',
         subject: 'Subjecto yo',
         body: 'Example body text',
         attachments: undefined
       },
       {
-        sender: 'Sender Name 1 pls',
+        from: 'Sender Name 1 pls',
         subject: 'Subjecto yo awif iwe feo iwe fewoi fwjf wi',
         body: 'Example body text',
         attachments: undefined
       },
       {
-        sender: 'Sender Name 1',
+        from: 'Sender Name 1',
         subject: 'pls',
         body: 'Example body text',
         attachments: undefined
       }
     ];
-
-    for (var i = 0; i < 20; i++) {
-      emailCtrl.emails.push(       {
-              sender: 'Sender Name 1',
-              subject: 'Subjecto yo',
-              body: 'Example body text',
-              attachments: undefined
-            })
-    }
     $scope.displayedEmails = emailCtrl.emails;
 
 
