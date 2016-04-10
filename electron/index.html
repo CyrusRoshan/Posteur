@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="EmailApp">
+  <head>
+    <meta charset="UTF-8">
+    <title>Posteur</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+    <script src="./index.js"></script>
+  </head>
+  <body>
+    <div id="root" ng-controller="EmailCtrl as emailCtrl">
+      <div id="left">
+        <div class="bar" id="searchBar">
+          <input type="search" id="searchBox" placeholder="Search...">
+
+          </input>
+        </div>
+        <div ng-class="{selectedLeftEmail: emailCtrl.isSelected(this)}" ng-click="emailCtrl.selectEmail(this)" ng-repeat="email in emailCtrl.emails" class="leftEmail">
+          <div class="sender">
+            {{email.sender}}
+          </div>
+          <div class="subject">
+            {{email.subject}}
+          </div>
+        </div>
+      </div>
+      <div id="right">
+        <div class="bar" id="mainBar">
+          <div id="refresh" ng-click="emailCtrl.refresh()" ng-class="{composeSpin: emailCtrl.isRefreshing()}">
+            &#10227;
+          </div>
+          <div id="logo">
+            [moustache here]
+          </div>
+          <div id="compose">
+            +
+          </div>
+        </div>
+        <div id="mainView">
+
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
