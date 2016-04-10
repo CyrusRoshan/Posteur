@@ -1,0 +1,5 @@
+"Rule: ocaml: ml -> cmo & cmi (%=db_service )": "\199\006\212B\142m\128\247\248h\203\029\204\020n\249"
+"Rule: ocaml dependencies ml (%=db_service )": "\187q\185Wox*\017m|t\219s\014\1417"
+"Resource: /home/chrismamo1/programming/bitcamp_2016/Posteur/db_service/db_service.ml": "\203\211\201\136z{\202p\022\177\1460\146%\234$"
+"Rule: ocaml: cmx* & o* -> native (%=db_service )": "\252\1382-\b\027\146\202\226\031@U?\023&G"
+"Rule: ocaml: ml & cmi -> cmx & o (%=db_service )": "\234/;P\228\177n\203\212_\223\139r\221\131\248"
