@@ -100,7 +100,7 @@ let () =
   begin match !show_emails with
   | true ->
       let emails = retrieve_all_emails () in
-      messages_dump_to_yojson emails |> Yojson.Basic.pretty_to_channel stdout
+      messages_dump_to_yojson emails |> Yojson.Basic.to_channel stdout
   | false ->
       ()
   end
