@@ -20,9 +20,10 @@ angular.module('EmailApp', [])
       var dbInfo = JSON.parse(ipcRenderer.sendSync('CLI', './db_service/db_service.native -show-emails')).emails.map(function (elem) {
         elem.subject = decodeURIComponent(elem.subject.replace(/\+/g, '%20'));
         elem.body = decodeURIComponent(elem.body.replace(/\+/g, '%20'));
+        if (elem.subject.includes('1801'))
+          elem.fraud = true;
         return elem;
       });
-      dbInfo[2].fraud = true;
       console.log(dbInfo);
       emailCtrl.emails = dbInfo;
       emailSearch({value: ''});
