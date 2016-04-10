@@ -6,6 +6,8 @@ import cPickle
 import gzip
 
 from nltk import word_tokenize
+import nltk
+nltk.download('all')
 
 class MarkovItem(object):
     def __init__(self, item, probability):
