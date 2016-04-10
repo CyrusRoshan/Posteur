@@ -1,15 +1,38 @@
 angular.module('EmailApp', [])
   .controller('EmailCtrl', ['$scope', function($scope) {
     var emailCtrl = this;
-    var selectedEmail = undefined;
 
+    emailCtrl.selectedEmail = undefined;
     emailCtrl.isSelected = function(email) {
-      if (email === selectedEmail)
+      if (email.email === emailCtrl.selectedEmail)
         return true;
       return false;
     }
+    emailCtrl.selectEmail = function(email) {
+      emailCtrl.selectedEmail = email.email;
+    }
 
-    emailCtrl.lolbugfix = "";
+    emailCtrl.refresh = function() {
+      console.log('Refreshing...');
+    }
+
+    emailCtrl.currentComposeState = '+';
+    emailCtrl.currentComposeEmail = {};
+    emailCtrl.compose = function() {
+      if (emailCtrl.currentComposeState === '+') {
+        emailCtrl.currentComposeState = 'X';
+      } else {
+        emailCtrl.currentComposeState = '+';
+        emailCtrl.currentComposeEmail = {};
+      }
+    }
+
+    emailCtrl.sendMail = function() {
+      console.log(emailCtrl.currentComposeEmail);
+      emailCtrl.compose();
+    }
+
+    emailCtrl.emailSent = true;
 
     emailSearch = function(search) {
       var query = search.value.toLowerCase();
@@ -63,11 +86,7 @@ angular.module('EmailApp', [])
               attachments: undefined
             })
     }
-
     $scope.displayedEmails = emailCtrl.emails;
 
-    emailCtrl.selectEmail = function(email) {
-      selectedEmail = email;
-    }
 
   }]);
