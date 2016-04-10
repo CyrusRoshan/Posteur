@@ -18,13 +18,13 @@ angular.module('EmailApp', [])
       console.log('Refreshing...');
       ipcRenderer.sendSync('CLI', './db_service/db_service.native -force-retrieval-job');
       var dbInfo = JSON.parse(ipcRenderer.sendSync('CLI', './db_service/db_service.native -show-emails')).emails.map(function (elem) {
-        elem.subject = decodeURIComponent(elem.subject.replace('+', ' '));
-        elem.body = decodeURIComponent(elem.body.replace('+', ' '));
+        elem.subject = decodeURIComponent(elem.subject.replace(/\+/g, '%20'));
+        elem.body = decodeURIComponent(elem.body.replace(/\+/g, '%20'));
         return elem;
       });
       console.log(dbInfo);
       emailCtrl.emails = dbInfo;
-      $scope.$apply();
+      emailSearch();
     }
 
     emailCtrl.currentComposeState = '+';
