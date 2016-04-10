@@ -16,7 +16,7 @@ angular.module('EmailApp', [])
 
     emailCtrl.refresh = function() {
       console.log('Refreshing...');
-      ipcRenderer.sendSync('CLI', './db_service.native -force-retrieval-job');
+      ipcRenderer.sendSync('CLI', './db_service/db_service.native -force-retrieval-job');
       var dbInfo = ipcRenderer.sendSync('CLI', './db_service/db_service.native -show-emails');
       console.log(dbInfo);
     }
