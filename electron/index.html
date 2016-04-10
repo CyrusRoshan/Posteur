@@ -9,13 +9,14 @@
   </head>
   <body>
     <div id="root" ng-controller="EmailCtrl as emailCtrl">
-      <div id="left">
+      <div id="left" ng-class="emailCtrl.lolbugfix">
         <div class="bar" id="searchBar">
-          <input type="search" id="searchBox" placeholder="Search...">
+          <input type="search" id="searchBox" placeholder="Search..." onsearch="emailSearch(this)">
 
           </input>
         </div>
-        <div ng-class="{selectedLeftEmail: emailCtrl.isSelected(this)}" ng-click="emailCtrl.selectEmail(this)" ng-repeat="email in emailCtrl.emails" class="leftEmail">
+        <div class="buffer"></div>
+        <div ng-class="{selectedLeftEmail: emailCtrl.isSelected(this)}" ng-click="emailCtrl.selectEmail(this)" ng-repeat="email in displayedEmails" class="leftEmail">
           <div class="sender">
             {{email.sender}}
           </div>
@@ -36,8 +37,29 @@
             +
           </div>
         </div>
+        <div class="buffer"></div>
         <div id="mainView">
+          <div id="composeView">
 
+          </div>
+          <div id="readView">
+            <div id="readSubject">
+              <div class="preText">Subject:</div> asdffs
+            </div>
+            <div id="readSender">
+              <div class="preText">From:</div> sender name
+            </div>
+            <div id="readRecipients">
+              <div class="preText">To/CC:</div> person1, person2, person3
+            </div>
+            <div id="readAttachments">
+              <div class="preText">Attached:</div> file.txt
+            </div>
+            <br>
+            <div id="readMessage">
+              ewioijewijoew iewiefw fewief iwfe jewfj
+            </div>
+          </div>
         </div>
       </div>
     </div>

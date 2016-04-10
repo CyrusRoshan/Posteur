@@ -10,17 +10,20 @@ html, body {
   display: block;
   width: 30%;
   height: 100vh;
-  background-color: red;
   overflow: scroll;
+}
+
+.bugfix1 {
+  width: 29.99% !important;
+}
+
+.bugfix2 {
+  width: 29.999% !important;
 }
 
 .leftEmail {
   background-color: white;
   padding: 7px;
-}
-
-.leftEmail:nth-of-type(2) {
-  margin-top: 40px;
 }
 
 .leftEmail .sender {
@@ -82,7 +85,8 @@ html, body {
 
 #refresh {
   background-color: white;
-  padding: 5px;
+  padding-right: 6px;
+  padding-left: 7px;
   padding-top: 2px;
   padding-bottom: 2px;
   border-radius: 20px;
@@ -90,11 +94,31 @@ html, body {
 
 #compose {
   background-color: white;
-  padding: 5px;
+  padding: 7px;
   padding-top: 0px;
   padding-bottom: 0px;
   border-radius: 20px;
 }
 
 #logo {
+}
+
+#readView {
+  width: 86%;
+  margin-left: 5%;
+  background-color: #F0E7FF;
+  margin-top: 20px;
+  padding: 2%;
+  border-radius: 5px;
+  -webkit-user-select: initial;
+}
+
+#readView .preText {
+  display: inline;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.buffer {
+  padding-top: 40px;
 }
