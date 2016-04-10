@@ -54,7 +54,7 @@ let retrieve_all_emails () =
   { emails = !rval }
 
 let force_retrieve_all_emails () =
-  let is = Unix.open_process_in "java -jar ../mailrunner.jar show" in
+  let is = Unix.open_process_in "java -jar ../mailrunner.jar" in
   let yj = Yojson.Basic.from_channel is in
   let dbh = Sqlite3.db_open "../emails.db" in
   let md = messages_dump_of_yojson yj in
@@ -100,7 +100,7 @@ let () =
   begin match !show_emails with
   | true ->
       let emails = retrieve_all_emails () in
-      messages_dump_to_yojson emails |> Yojson.Basic.pretty_to_channel stdout
+      messages_dump_to_yojson emails |> Yojson.Basic.to_channel stdout
   | false ->
       ()
   end
