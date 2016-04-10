@@ -40,7 +40,7 @@ angular.module('EmailApp', [])
     }
 
     emailCtrl.sendMail = function() {
-      ipcRenderer.sendSync('CLI', `${encodeURIComponent(emailCtrl.currentComposeEmail.recipients)} ${encodeURIComponent(emailCtrl.currentComposeEmail.subject)} ${encodeURIComponent(emailCtrl.currentComposeEmail.body)}`);
+      ipcRenderer.sendSync('CLI', `java -jar mailrunner.jar ${encodeURIComponent(emailCtrl.currentComposeEmail.recipients)} ${encodeURIComponent(emailCtrl.currentComposeEmail.subject)} ${encodeURIComponent(emailCtrl.currentComposeEmail.body)}`);
 
       emailCtrl.compose();
       emailCtrl.emailSent = true;
