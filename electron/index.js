@@ -30,9 +30,14 @@ angular.module('EmailApp', [])
     emailCtrl.sendMail = function() {
       console.log(emailCtrl.currentComposeEmail);
       emailCtrl.compose();
+      emailCtrl.emailSent = true;
+      setTimeout(function() {
+        emailCtrl.emailSent = false;
+        $scope.$apply();
+      }, 1500);
     }
 
-    emailCtrl.emailSent = true;
+    emailCtrl.emailSent = false;
 
     emailSearch = function(search) {
       var query = search.value.toLowerCase();
