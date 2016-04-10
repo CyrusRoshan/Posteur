@@ -1,3 +1,5 @@
+const ipcRenderer = require('electron').ipcRenderer;
+
 angular.module('EmailApp', [])
   .controller('EmailCtrl', ['$scope', function($scope) {
     var emailCtrl = this;
@@ -14,6 +16,8 @@ angular.module('EmailApp', [])
 
     emailCtrl.refresh = function() {
       console.log('Refreshing...');
+      var dbInfo = ipcRenderer.sendSync('fullDataRequest', 'ping');
+      console.log(dbInfo);
     }
 
     emailCtrl.currentComposeState = '+';
@@ -82,15 +86,6 @@ angular.module('EmailApp', [])
         attachments: undefined
       }
     ];
-
-    for (var i = 0; i < 20; i++) {
-      emailCtrl.emails.push(       {
-              sender: 'Sender Name 1',
-              subject: 'Subjecto yo',
-              body: 'Example body text',
-              attachments: undefined
-            })
-    }
     $scope.displayedEmails = emailCtrl.emails;
 
 

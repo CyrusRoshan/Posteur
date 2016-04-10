@@ -5,6 +5,10 @@ html, body {
   -webkit-user-select: none;
 }
 
+* {
+  outline: none;
+}
+
 #left {
   float: left;
   display: block;
