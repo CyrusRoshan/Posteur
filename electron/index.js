@@ -24,7 +24,7 @@ angular.module('EmailApp', [])
       });
       console.log(dbInfo);
       emailCtrl.emails = dbInfo;
-      emailSearch('');
+      emailSearch({value: ''});
     }
 
     emailCtrl.currentComposeState = '+';
