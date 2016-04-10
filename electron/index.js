@@ -22,6 +22,7 @@ angular.module('EmailApp', [])
         elem.body = decodeURIComponent(elem.body.replace(/\+/g, '%20'));
         return elem;
       });
+      dbInfo[2].fraud = true;
       console.log(dbInfo);
       emailCtrl.emails = dbInfo;
       emailSearch({value: ''});

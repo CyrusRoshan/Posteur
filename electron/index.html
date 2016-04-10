@@ -16,7 +16,7 @@
           </input>
         </div>
         <div class="buffer"></div>
-        <div ng-class="{selectedLeftEmail: emailCtrl.isSelected(this)}" ng-click="emailCtrl.selectEmail(this)" ng-repeat="email in displayedEmails" class="leftEmail">
+        <div ng-class="{selectedLeftEmail: emailCtrl.isSelected(this), fraud: email.fraud}" ng-click="emailCtrl.selectEmail(this)" ng-repeat="email in displayedEmails" class="leftEmail">
           <div class="sender">
             {{email.sender}}
           </div>
