@@ -76,26 +76,7 @@ angular.module('EmailApp', [])
       }, 10);
     }
 
-    emailCtrl.emails = [
-      {
-        from: 'Sender Name 1',
-        subject: 'Subjecto yo',
-        body: 'Example body text',
-        attachments: undefined
-      },
-      {
-        from: 'Sender Name 1 pls',
-        subject: 'Subjecto yo awif iwe feo iwe fewoi fwjf wi',
-        body: 'Example body text',
-        attachments: undefined
-      },
-      {
-        from: 'Sender Name 1',
-        subject: 'pls',
-        body: 'Example body text',
-        attachments: undefined
-      }
-    ];
+    emailCtrl.emails = [];
     $scope.displayedEmails = emailCtrl.emails;
 
 
