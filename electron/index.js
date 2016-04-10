@@ -17,13 +17,13 @@ angular.module('EmailApp', [])
     emailCtrl.refresh = function() {
       console.log('Refreshing...');
       ipcRenderer.sendSync('CLI', './db_service/db_service.native -force-retrieval-job');
-      var dbInfo = JSON.parse(ipcRenderer.sendSync('CLI', './db_service/db_service.native -show-emails')).map(function (elem) {
+      var dbInfo = JSON.parse(ipcRenderer.sendSync('CLI', './db_service/db_service.native -show-emails')).emails.map(function (elem) {
         elem.subject = decodeURIComponent(elem.subject);
         elem.body = decodeURIComponent(elem.body);
         return elem;
       });
-
       console.log(dbInfo);
+      emailCtrl.emails = dbInfo;
     }
 
     emailCtrl.currentComposeState = '+';
@@ -56,7 +56,7 @@ angular.module('EmailApp', [])
         $scope.displayedEmails = emailCtrl.emails;
       } else {
         $scope.displayedEmails = emailCtrl.emails.filter(function(email){
-          if (email.sender.toLowerCase().includes(query) || email.subject.toLowerCase().includes(query) || email.body.toLowerCase().includes(query)) {
+          if (email.from.toLowerCase().includes(query) || email.subject.toLowerCase().includes(query) || email.body.toLowerCase().includes(query)) {
             console.log('true');
             return true;
           }
@@ -75,19 +75,19 @@ angular.module('EmailApp', [])
 
     emailCtrl.emails = [
       {
-        sender: 'Sender Name 1',
+        from: 'Sender Name 1',
         subject: 'Subjecto yo',
         body: 'Example body text',
         attachments: undefined
       },
       {
-        sender: 'Sender Name 1 pls',
+        from: 'Sender Name 1 pls',
         subject: 'Subjecto yo awif iwe feo iwe fewoi fwjf wi',
         body: 'Example body text',
         attachments: undefined
       },
       {
-        sender: 'Sender Name 1',
+        from: 'Sender Name 1',
         subject: 'pls',
         body: 'Example body text',
         attachments: undefined
