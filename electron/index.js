@@ -16,7 +16,8 @@ angular.module('EmailApp', [])
 
     emailCtrl.refresh = function() {
       console.log('Refreshing...');
-      var dbInfo = ipcRenderer.sendSync('fullDataRequest', 'ping');
+      ipcRenderer.sendSync('CLI', './db_service.native -force-retrieval-job');
+      var dbInfo = ipcRenderer.sendSync('CLI', './db_service/db_service.native -show-emails');
       console.log(dbInfo);
     }
 
@@ -32,7 +33,8 @@ angular.module('EmailApp', [])
     }
 
     emailCtrl.sendMail = function() {
-      console.log(emailCtrl.currentComposeEmail);
+      ipcRenderer.sendSync('CLI', `${encodeURIComponent(emailCtrl.currentComposeEmail.recipients)} ${encodeURIComponent(emailCtrl.currentComposeEmail.subject)} ${encodeURIComponent(emailCtrl.currentComposeEmail.body)}`);
+
       emailCtrl.compose();
       emailCtrl.emailSent = true;
       setTimeout(function() {

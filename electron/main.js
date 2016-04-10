@@ -29,10 +29,10 @@ app.on('ready', () => {
 });
 
 
-ipcMain.on('fullDataRequest', function(event, arg) {
+ipcMain.on('CLI', function(event, arg) {
   //console.log(arg);  // prints "ping"
-  exec('./db_service/db_service.native -show-emails', (err, stdout, stderr) => {
-    console.log(stdout);
+  exec(arg, (err, stdout, stderr) => {
+    console.log(stdout || err || stderr);
     event.returnValue = stdout;
   });
 });
