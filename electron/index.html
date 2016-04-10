@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html ng-app="EmailApp">
+  <head>
+    <meta charset="UTF-8">
+    <title>Postéur</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <script src="./node_modules/angular/angular.js"></script>
+    <script src="./index.js"></script>
+  </head>
+  <body>
+    <div id="root" ng-controller="EmailCtrl as emailCtrl">
+      <div id="left" ng-class="emailCtrl.lolbugfix">
+        <div class="bar" id="searchBar">
+          <input type="search" id="searchBox" placeholder="Search..." onsearch="emailSearch(this)">
+
+          </input>
+        </div>
+        <div class="buffer"></div>
+        <div ng-class="{selectedLeftEmail: emailCtrl.isSelected(this)}" ng-click="emailCtrl.selectEmail(this)" ng-repeat="email in displayedEmails" class="leftEmail">
+          <div class="sender">
+            {{email.sender}}
+          </div>
+          <div class="subject">
+            {{email.subject}}
+          </div>
+        </div>
+      </div>
+      <div id="right">
+        <div class="bar" id="mainBar">
+          <div id="refresh" ng-click="emailCtrl.refresh()">
+            &#10227;
+          </div>
+          <div id="logo">
+            Postéur
+          </div>
+          <div id="compose" ng-click="emailCtrl.compose()">
+            {{emailCtrl.currentComposeState}}
+          </div>
+        </div>
+        <div class="buffer"></div>
+        <div id="mainView">
+          <div id="emailSent" ng-class="{hide: !emailCtrl.emailSent, show: emailCtrl.emailSent}">Email has been sent!</div>
+          <div ng-class="{hide: emailCtrl.currentComposeState === '+', show: emailCtrl.currentComposeState != '+'}" id="composeView">
+            <div id="sendMail" ng-click="emailCtrl.sendMail()">Send</div>
+            <input id="writeSubject" ng-model="emailCtrl.currentComposeEmail.subject" placeholder="Subject: "></input>
+            <input id="writeRecipients" ng-model="emailCtrl.currentComposeEmail.recipients" placeholder="To:"></input>
+            <textarea id="writeBody" ng-model="emailCtrl.currentComposeEmail.body" cols="40" rows="10" placeholder="Body:"></textarea>
+          </div>
+          <div ng-class="{hide: !emailCtrl.selectedEmail, show: Boolean(emailCtrl.selectedEmail)}" id="readView">
+            <div id="readSubject">
+              <div class="preText">Subject:</div> {{emailCtrl.selectedEmail.subject}}
+            </div>
+            <div id="readSender">
+              <div class="preText">From:</div> {{emailCtrl.selectedEmail.sender}}
+            </div>
+            <div id="readRecipients">
+              <div class="preText">To/CC:</div> {{emailCtrl.selectedEmail.recipients}}
+            </div>
+            <div ng-class="{hide: !emailCtrl.selectedEmail.attachments, show: Boolean(emailCtrl.selectedEmail.attachments)}" id="readAttachments">
+              <div class="preText">Attached:</div> {{emailCtrl.selectedEmail.attachments}}
+            </div>
+            <br>
+            <div id="readMessage">
+              {{emailCtrl.selectedEmail.body}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
